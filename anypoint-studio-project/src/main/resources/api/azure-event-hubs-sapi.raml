@@ -1,0 +1,17 @@
+#%RAML 1.0
+title: Azure Event Hubs System API
+mediaType:
+  - application/json
+/events:
+  post:
+    displayName: Publishes an event
+    description: Publishes the request body to Azure Event Hubs.
+    body:
+      type: object
+      example: {}
+    responses:
+      "201":
+        description: Event published successfully
+        body:
+          type: object
+          example: {}

@@ -1,0 +1,36 @@
+#===================================================================================================
+# Mule application properties template
+#===================================================================================================
+
+env:
+  name: "dev"   # Development/sandbox environment
+
+http_listener:
+  http:
+    host: "0.0.0.0"
+    port: "8081"
+  https:
+    host: "0.0.0.0"
+    port: "8082"
+
+# Properties used to get an access token from Microsoft Entra ID.
+entra_id:
+  host:           "login.microsoftonline.com"
+  port:           ""   # blank/use default port
+  protocol:       "HTTPS"
+  base_path:      "/${entra_id.tenant_id}/oauth2/v2.0/token"
+  tenant_id:      <tenant id>
+  client_id:      <client id>
+  client_secret:  <client secret>
+  scope:          "https://eventhubs.azure.net/.default"
+
+# Properties related and used to interact with Azure Event Hubs
+azure:
+  protocol:       "HTTPS"
+  host:           "${azure.event_hubs.namespace}.servicebus.windows.net"
+  port:           ""   # blank/use default port
+  base_path:      "/"
+  event_hubs:
+    namespace:    <Event Hubs namespace>
+    event_hub:    <event hub name>
+  api_version:    "2014-01"

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+    <http:listener-config name="azure-event-hubs-sapi-httpListenerConfig">
+        <http:listener-connection host="${http_listener.http.host}" port="${http_listener.http.port}" />
+    </http:listener-config>
+    <global-property doc:name="Global Property" doc:id="2937d440-3d7e-4559-8841-59e215ac1648" name="env" value="dev" />
+    <configuration-properties doc:name="Configuration properties" doc:id="e4b11e28-9f41-464c-a9ad-ba9953323477" file="properties/mule-props-${env}.yaml" />
+	<http:request-config name="Entra_ID_HTTP_Request_Config" doc:name="HTTP Request configuration" doc:id="3ffef2ab-9c05-432c-aafb-8892a0e77633" basePath="${entra_id.base_path}" >
+		<http:request-connection protocol="${entra_id.protocol}" host="${entra_id.host}" port="${entra_id.port}" usePersistentConnections="false" />
+	</http:request-config>
+	<http:request-config name="Azure_Event_Hubs_HTTP_Request_Config" doc:name="HTTP Request configuration" doc:id="9690ab0f-5ac8-4fa2-9354-17b6aff2d482" basePath="${azure.base_path}" >
+		<http:request-connection protocol="${azure.protocol}" host="${azure.host}" port="${azure.port}" />
+	</http:request-config>
+
+</mule>

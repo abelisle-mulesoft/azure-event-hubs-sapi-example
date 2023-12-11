@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="post-event-impl-flow" doc:id="4af3a282-a157-4d30-adf3-951c631bee07" >
+		<logger level="TRACE" doc:name="Trace - Copying payload to variable" doc:id="e73b3910-75d5-450a-9cb2-603475d62930" message="Copying payload to variable" />
+		<set-variable value="#[payload]" doc:name="eventData" doc:id="3efc0c88-a542-4a62-bbd4-e67dc03e1034" variableName="eventData" mimeType="application/json" />
+		<flow-ref doc:name="get-access-token-flow" doc:id="80c89d47-915c-4ef6-b7fa-48540490dbb0" name="get-access-token-flow" />
+		<logger level="TRACE" doc:name="Trace - Publishing event" doc:id="41cca479-2f6c-4e27-b6b1-d2ad6be98047" message="#['Publishing event to Azure Event Hubs (even hub: ${azure.event_hubs.event_hub})']" />
+		<http:request method="POST" doc:name="Publish event to Azure Event Hubs" doc:id="902b39b5-1e2c-4d50-9c7e-dbf9b425ab55" config-ref="Azure_Event_Hubs_HTTP_Request_Config" path='#["/${azure.event_hubs.event_hub}/messages"]' outputMimeType="application/json" sendBodyMode="AUTO" >
+			<http:body ><![CDATA[#[vars.eventData]]]></http:body>
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"Authorization" : "Bearer " ++ vars.accessToken
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"api-version" : "${azure.api_version}"
+}]]]></http:query-params>
+		</http:request>
+		<logger level="TRACE" doc:name="Trace - Successfully published event" doc:id="521c5192-4a3a-4338-b6b2-719c3938c07e" message="Trace - Successfully published event to Azure Event Hubs" />
+		<error-handler >
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="c5ca0deb-7f60-4347-a7f6-e0cf7a7049fa" >
+				<logger level="ERROR" doc:name="Error - Log entire error payload" doc:id="0dbeeca2-6477-460f-a8e9-b4bb7d6c58ca" message="#[output application/json --- error.errorMessage.payload]" />
+			</on-error-propagate>
+		</error-handler>
+	</flow>
+	<flow name="get-access-token-flow" doc:id="7c5b20f2-6fd6-4e6f-a890-e30fe64ac692" >
+		<logger level="TRACE" doc:name="Trace - Getting access token" doc:id="bdac167f-d943-4104-a1f6-ea1e60b6716c" message="Getting access token from Microsoft Entra ID" />
+		<ee:transform doc:name="Create Entra ID request" doc:id="b05424a1-5226-4f59-8cc3-68e34bf77506" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/x-www-form-urlencoded
+---
+{
+	scope:         "${entra_id.scope}",
+	grant_type:    "client_credentials",
+	client_id:     "${entra_id.client_id}",
+	client_secret: "${entra_id.client_secret}"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<http:request method="POST" doc:name="Get access token from Entra ID" doc:id="a94c2182-243a-4610-90e6-1facc955061b" config-ref="Entra_ID_HTTP_Request_Config" path="/" />
+		<set-variable value="#[payload.access_token]" doc:name="accessToken" doc:id="c1cef364-cd46-4e44-9ef5-8017372442e0" variableName="accessToken" />
+		<logger level="TRACE" doc:name="Trace - Successfully got access token" doc:id="a89f5df2-38fa-457a-b53a-97ae5365d2f1" message="Successfully got access token from Microsoft Entra ID" />
+		<error-handler >
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="3bdf6fe1-9b58-4d6c-8cd2-411739e41d7b" >
+				<logger level="ERROR" doc:name="Error - Log entire error payload" doc:id="08e42853-5945-4db4-96d5-c33ca032e7bd" message="#[output application/json --- error.errorMessage.payload]" />
+			</on-error-propagate>
+		</error-handler>
+	</flow>
+</mule>
