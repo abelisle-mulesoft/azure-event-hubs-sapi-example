@@ -1,6 +1,5 @@
----
-title: How to Integrate with Azure Event Hubs
----
+How to Integrate with Azure Event Hubs
+======================================
 
 # Table of Contents
 
@@ -34,7 +33,8 @@ Recently, a customer asked us how to publish JSON data to Azure Event Hubs. I au
 
 Before we start, please ensure you have an Azure account and the appropriate privileges to create resources, especially Microsoft Entra ID (formerly known as Azure Active Directory) and Azure Event Hubs resources.
 
-> :memo: **Note:** I authored this content using my personal account and a pay-as-you-go subscription. I cannot confirm if you can create all the required resources using a trial subscription. |
+> [!NOTE]
+> I authored this content using my personal account and a pay-as-you-go subscription. I cannot confirm if you can create all the required resources using a trial subscription.
 
 # Integrate with Azure Event Hubs
 
@@ -90,7 +90,8 @@ When integrating with Azure Event Hubs, there are two essential resources.
 
 2.  The **event hub** behaves like a topic in Apache Kafka and is very similar to a topic in the publish-subscribe messaging pattern. As Microsoft described it, an event hub is an append-only distributed log (3). A client application consumes data by seeking through the event log and maintaining an offset (3).
 
-> :memo: **Note:** Conceptually, Azure Event Hubs is similar to Apache Kafka, leading to believe that Microsoft built it on Kafka. However, Microsoft argued that “Azure Event Hubs is a cloud-native multi-tier broker with support for multiple protocols that is developed and maintained by Microsoft and doesn't use any Apache Kafka code” (5). |
+> [!NOTE]
+> Conceptually, Azure Event Hubs is similar to Apache Kafka, leading to believe that Microsoft built it on Kafka. However, Microsoft argued that “Azure Event Hubs is a cloud-native multi-tier broker with support for multiple protocols that is developed and maintained by Microsoft and doesn't use any Apache Kafka code” (5).
 
 #### 1.2.1 – Create an Event Hubs Namespace
 
@@ -274,7 +275,8 @@ Click the **Add** button once done.
 
 <img src="assets/image34.png" style="width:7.5in;height:4.25625in" />
 
-> :warning: **REMARK:** The Secret ID is a unique identifier and does not represent the client id. More importantly, we do not need the secret id.
+> [!IMPORTANT]
+> The Secret ID is a unique identifier and does not represent the client id. More importantly, we do not need the secret id.
 
 Click **Home** in the breadcrumbs (upper left corner) to return to the Azure Portal home page.
 
@@ -296,7 +298,8 @@ Finally, we assign a role to our application, allowing it to access our Azure Ev
 
 - Optionally, enter *event hubs* in the search bar on the **Role** tab and select the role **Azure Event Hubs Data Owner**.
 
-> :memo: **Note:** I use the role **Azure Event Hubs Data Owner** for convenience as it grants full access to my **Azure Event Hubs** resources. Naturally, I could select another role with less privileges and I could also add more role assignments to grant additional access and privileges to other services for example.
+> [!NOTE]
+> I use the role **Azure Event Hubs Data Owner** for convenience as it grants full access to my **Azure Event Hubs** resources. Naturally, I could select another role with less privileges and I could also add more role assignments to grant additional access and privileges to other services for example.
 
 <img src="assets/image38.png" style="width:7.5in;height:6.45139in" />
 
@@ -346,7 +349,8 @@ As discussed in the Introduction section, I built the Mule application to demo h
 
 When I need to implement a new integration involving APIs and technologies I am not familiar with, I typically start with Postman and use a trial-and-error approach. Using Postman (or even curl) allows me to fine-tune everything more quickly. You can make changes and call APIs in seconds using Postman, whereas you need to rebuild the Mule application before you can test your changes, even if they are minor.
 
-> :bright_button: **Tip:** When I need to implement a new integration involving APIs and technologies I am not familiar with, I typically start with Postman (or even curl) and use a trial-and-error approach. Using Postman allows me to fine-tune everything more quickly. You can make changes and call APIs in seconds using Postman, whereas you need to rebuild the Mule application before you can test your changes, even if they are minor. |
+> [!TIP]
+> When I need to implement a new integration involving APIs and technologies I am not familiar with, I typically start with Postman (or even curl) and use a trial-and-error approach. Using Postman allows me to fine-tune everything more quickly. You can make changes and call APIs in seconds using Postman, whereas you need to rebuild the Mule application before you can test your changes, even if they are minor.
 
 ### 2.1 – (Optional) Test Azure Configuration Using Postman
 
@@ -401,11 +405,10 @@ First, we review the first API request, which we use to authenticate and get an 
 
 <img src="assets/image50.png" style="width:7.5in;height:5.87778in" />
 
-> :memo: **Note:** The value of the *expires_in* property is in seconds. Hence, the access token we just received is valid for an hour. |
+> [!NOTE]
+> The value of the *expires_in* property is in seconds. Hence, the access token we just received is valid for an hour.
 
 - While here, copy the value of the *access_token* from the response you just got and paste it into the relevant variable in preparation for the next steps.
-
-<!-- -->
 
 - Click the **Azure Event Hubs** tab and paste the **access_token** value into the **accessToken** variable.
 
@@ -433,7 +436,8 @@ Next, we leverage the access token we pasted in the relevant variable, and we ar
 
 <img src="assets/image54.png" style="width:7.5in;height:2.69722in" />
 
-> :memo: **Note:** The latest version is 2014-01 as documented here: <a href="https://learn.microsoft.com/en-us/rest/api/eventhub/event-hubs-runtime-rest">https://learn.microsoft.com/en-us/rest/api/eventhub/event-hubs-runtime-rest</a>
+> [!NOTE]
+> The latest version is 2014-01 as documented here: <a href="https://learn.microsoft.com/en-us/rest/api/eventhub/event-hubs-runtime-rest">https://learn.microsoft.com/en-us/rest/api/eventhub/event-hubs-runtime-rest</a>
 
 - Next, click on the **Headers** tab and review the headers.
 
@@ -472,7 +476,8 @@ In this section, I assume you cloned or downloaded my Anypoint Studio project fr
 
 <img src="assets/image59.png" style="width:7.5in;height:5.25417in" />
 
-> :warning: **REMARK:** As per infosec best practices, I did not commit my development properties file to GitHub as it contains sensitive information. However, I provided a template to enable you to create one specific to your own implementation and Azure resources. |
+> [!IMPORTANT]
+> As per infosec best practices, I did not commit my development properties file to GitHub as it contains sensitive information. However, I provided a template to enable you to create one specific to your own implementation and Azure resources.
 
 - I leveraged three Mule configuration files as per MuleSoft best practices.
 
@@ -484,7 +489,8 @@ In this section, I assume you cloned or downloaded my Anypoint Studio project fr
 
 <img src="assets/image61.png" style="width:7.5in;height:4.50625in" />
 
-> :bright_button: **Tip:** If you are not familiar with this practice, we typically override this property when deploying our application to higher environments (e.g., test, QA, prod), which results in picking up the properties file specific to that environment. |
+> [!TIP]
+> If you are not familiar with this practice, we typically override this property when deploying our application to higher environments (e.g., test, QA, prod), which results in picking up the properties file specific to that environment.
 
   - Second, I configured my **Configuration properties** element accordingly.
 
@@ -504,7 +510,8 @@ In this section, I assume you cloned or downloaded my Anypoint Studio project fr
 
 <img src="assets/image65.png" style="width:7.48828in;height:2.84in" />
 
-> :memo: **Note:** Refer to section [Error Payload Example](#error-payload-example) in the appendix for more information about my default error body. |
+> [!NOTE]
+> Refer to section [Error Payload Example](#error-payload-example) in the appendix for more information about my default error body.
 
 #### 2.2.1 – Review Flow get-access-token-flow
 
@@ -625,17 +632,11 @@ Following is more information about the properties.
 
 ## References
 
-\(1\) <https://learn.microsoft.com/en-us/azure/event-hubs/event-hubs-create>
-
-\(2\) <https://learn.microsoft.com/en-us/azure/event-hubs/event-hubs-faq>
-
-\(3\) <https://learn.microsoft.com/en-us/azure/event-hubs/event-hubs-about>
-
-\(4\) <https://learn.microsoft.com/en-us/azure/event-hubs/event-hubs-features>
-
-\(5\) <https://learn.microsoft.com/en-us/azure/event-hubs/apache-kafka-frequently-asked-questions>
-
-\(6\) <https://learn.microsoft.com/en-us/azure/event-hubs/authenticate-shared-access-signature>
-
-\(7\) <https://learn.microsoft.com/en-us/rest/api/eventhub/send-event>
+- 1 - <https://learn.microsoft.com/en-us/azure/event-hubs/event-hubs-create>
+- 2 - <https://learn.microsoft.com/en-us/azure/event-hubs/event-hubs-faq>
+- 3 - <https://learn.microsoft.com/en-us/azure/event-hubs/event-hubs-about>
+- 4 - <https://learn.microsoft.com/en-us/azure/event-hubs/event-hubs-features>
+- 5 - <https://learn.microsoft.com/en-us/azure/event-hubs/apache-kafka-frequently-asked-questions>
+- 6 - <https://learn.microsoft.com/en-us/azure/event-hubs/authenticate-shared-access-signature>
+- 7 - <https://learn.microsoft.com/en-us/rest/api/eventhub/send-event>
 
