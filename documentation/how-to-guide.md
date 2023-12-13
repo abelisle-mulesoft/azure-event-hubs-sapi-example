@@ -16,11 +16,9 @@ How to Integrate with Azure Event Hubs
     - [2.1 – (Optional) Test Azure Configuration Using Postman](#optional-test-azure-configuration-using-postman)
     - [2.2 – Review Azure Event Hubs SAPI Example](#review-azure-event-hubs-sapi-example)
     - [2.3 – (Optional) Preview Events in Azure Event Hubs](#optional-preview-events-in-azure-event-hubs)
-- [Conclusion](#conclusion)
 - [Appendix](#appendix)
   - [Error Payload Example](#error-payload-example)
   - [References](#references)
-  - [Revision History](#revision-history)
 
 
 # Introduction
@@ -33,8 +31,7 @@ Recently, a customer asked us how to publish JSON data to Azure Event Hubs. I au
 
 Before we start, please ensure you have an Azure account and the appropriate privileges to create resources, especially Microsoft Entra ID (formerly known as Azure Active Directory) and Azure Event Hubs resources.
 
-> [!NOTE]
-> I authored this content using my personal account and a pay-as-you-go subscription. I cannot confirm if you can create all the required resources using a trial subscription.
+> [!NOTE] I authored this content using my personal account and a pay-as-you-go subscription. I cannot confirm if you can create all the required resources using a trial subscription.
 
 # Integrate with Azure Event Hubs
 
