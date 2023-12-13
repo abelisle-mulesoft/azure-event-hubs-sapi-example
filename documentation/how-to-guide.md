@@ -1,7 +1,7 @@
 How to Integrate with Azure Event Hubs
 ======================================
 
-# Table of Contents
+## Table of Contents
 
 - [Introduction](#introduction)
   - [Overview](#overview)
@@ -14,7 +14,7 @@ How to Integrate with Azure Event Hubs
     - [Authorize Access to Azure Event Hubs](#authorize-access-to-azure-event-hubs)
   - [Part 2 – Review Implementation](#part-2-review-implementation)
     - [2.1 – (Optional) Test Azure Configuration Using Postman](#optional-test-azure-configuration-using-postman)
-    - [– Review Azure Event Hubs SAPI Example](#review-azure-event-hubs-sapi-example)
+    - [2.2 – Review Azure Event Hubs SAPI Example](#review-azure-event-hubs-sapi-example)
     - [2.3 – (Optional) Preview Events in Azure Event Hubs](#optional-preview-events-in-azure-event-hubs)
 - [Conclusion](#conclusion)
 - [Appendix](#appendix)
@@ -461,7 +461,7 @@ Azure Event Hubs returns an HTTP status of 201 (and no response body) if our Azu
 
 We are now ready to discuss the Mule application.
 
-### – Review Azure Event Hubs SAPI Example
+### 2.2 – Review Azure Event Hubs SAPI Example
 
 I implemented only the critical components in my Studio project for my demo to keep it simple. My API exposes one resource, *events*, and one method, *POST*, and publishes the request body to Azure Event Hubs. I published my Studio project to GitHub and you can find it here:
 <https://github.com/abelisle-mulesoft/azure-event-hubs-sapi-example>.
@@ -597,7 +597,7 @@ The screen capture shows/previews four different events. Please remember that yo
 
 ## Error Payload Example
 
-As stated and illustrated in section ***2.2 – Implement Mule Application***, I use a (more) comprehensive body when returning errors in all my APIs. Following is an example of the payload returned when an error occurs.
+As stated and illustrated in section **2.2 – Review Azure Event Hubs SAPI Example**, I use a (more) comprehensive body when returning errors in all my APIs. Following is an example of the payload returned when an error occurs.
 
 ```json
 {
@@ -606,13 +606,13 @@ As stated and illustrated in section ***2.2 – Implement Mule Application***, I
   "errorMessage": "Operation failed (see responseDetails for more information)",
   "errorType": "VALIDATION_FAILED",
   "responseStatus": "ERROR",
-  "responseDetails": (
+  "responseDetails": [
     {
       "severity": "ERROR",
       "code": "EFBIG",
       "message": "An abnormal condition occurred"
     }
-  )
+  ]
 }
 ```
 
