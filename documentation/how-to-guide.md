@@ -31,7 +31,8 @@ Recently, a customer asked us how to publish JSON data to Azure Event Hubs. I au
 
 Before we start, please ensure you have an Azure account and the appropriate privileges to create resources, especially Microsoft Entra ID (formerly known as Azure Active Directory) and Azure Event Hubs resources.
 
-> [!NOTE] I authored this content using my personal account and a pay-as-you-go subscription. I cannot confirm if you can create all the required resources using a trial subscription.
+> [!NOTE]
+> I authored this content using my personal account and a pay-as-you-go subscription. I cannot confirm if you can create all the required resources using a trial subscription.
 
 # Integrate with Azure Event Hubs
 
