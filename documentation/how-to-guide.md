@@ -197,9 +197,13 @@ Click **Home** in the breadcrumbs (upper left corner) to return to the Azure Por
 
 In this step, we configure resources to allow our Mule application to access our Event Hubs namespace and to publish content to our event hub.
 
-### Authorize Access to Azure Event Hubs
+---
+
+#### About Authorizing Access to Azure Event Hubs
 
 In the Azure Event Hubs documentation, Microsoft described two approaches for authorizing access to Azure Event Hubs: a Shared Access Signature (SAS) token and a Microsoft Entra ID token. However, Microsoft recommends using Microsoft Entra ID credentials, when possible, as shared access signatures can be more easily compromised (6). As such, I leveraged Microsoft Entra ID credentials in my demo, and it is the approach documented herein.
+
+---
 
 #### 1.3.1 – Register an Application
 
